@@ -1,0 +1,22 @@
+{
+  "name": "Wangjian/XmlParser",
+  "description": "PHP写的XML解析器，能简单快速地将XML文档解析成节点树",
+  "license": "MIT",
+  "keywords": ["xml parser"],
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Wangjian",
+      "email": "1636801376@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "Wangjian\\XmlParser\\": "src"
+    }
+  }
+}

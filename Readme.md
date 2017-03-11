@@ -1,3 +1,8 @@
+###XmlParser
+用PHP写的XML解析器，使用简单，效率高。
+
+###Usage
+```php
 <?php
 use Node\Node;
 use Parser\XmlParser;
@@ -36,3 +41,5 @@ $xml = \Parser\XmlParser::loadFromFile('./data.xml');
 //XmlParser::save('./output.xml', $xml);*/
 
 var_dump($xml);
+
+```

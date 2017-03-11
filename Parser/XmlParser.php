@@ -167,7 +167,7 @@ class XmlParser {
                         if(substr($startWith, 0, 1) == '<') {
                             //when the line starts with '<*', it is a starting tag
                             if(self::$tmp_node_name != '') {
-                                $node = self::createCompositeNode();
+                                $node = self::createCompositeNode(self::$tmp_node_name, self::$tmp_node_attributes);
                                 $node->setLevel(self::$level);
 
                                 if(!(self::$root_node instanceof Node)) {
@@ -204,7 +204,7 @@ class XmlParser {
                             //otherwise, it is pure text
                             if(self::$current_times >= 2+self::$with_header) {
                                 preg_match("/^[^<>]+/", $line, $matches);
-                                $node = self::createNode();
+                                $node = self::createNode(self::$tmp_node_name, self::$tmp_node_attributes);
                                 $node->setLevel(self::$level);
 
                                 if (!self::$stack->isEmpty()) {
@@ -268,7 +268,7 @@ class XmlParser {
                 if (substr($startWith, 0, 1) == '<') {
                     //when the line starts with '<*', it is a starting tag
                     if (self::$tmp_node_name != '') {
-                        $node = self::createCompositeNode();
+                        $node = self::createCompositeNode(self::$tmp_node_name, self::$tmp_node_attributes);
                         $node->setLevel(self::$level);
 
                         if (!(self::$root_node instanceof Node)) {
@@ -305,7 +305,7 @@ class XmlParser {
                     //otherwise, it is pure text
                     if (self::$current_times >= 2 + self::$with_header) {
                         preg_match("/^[^<>]+/", $line, $matches);
-                        $node = self::createNode();
+                        $node = self::createNode(self::$tmp_node_name, self::$tmp_node_attributes);
                         $node->setLevel(self::$level);
 
                         if (!self::$stack->isEmpty()) {
@@ -341,12 +341,14 @@ class XmlParser {
 
     /**
      * create a leaf node
+     * @param string $node_name
+     * @param array $node_attr
      * @return Node
      */
-    protected static function createNode() {
-        $node = new Node(self::$tmp_node_name);
+    public static function createNode($node_name, $node_attr = array()) {
+        $node = new Node($node_name);
 
-        foreach(self::$tmp_node_attributes as $key => $value) {
+        foreach($node_attr as $key => $value) {
             $node->attribute($key, $value);
         }
 
@@ -355,12 +357,14 @@ class XmlParser {
 
     /**
      * create a branch node
-     * @return CompositeNode
+     * @param string $node_name
+     * @param array $node_attr
+     * @return Node
      */
-    protected static function createCompositeNode() {
-        $node = new CompositeNode(self::$tmp_node_name);
+    public static function createCompositeNode($node_name, $node_attr = array()) {
+        $node = new CompositeNode($node_name);
 
-        foreach(self::$tmp_node_attributes as $key => $value) {
+        foreach($node_attr as $key => $value) {
             $node->attribute($key, $value);
         }
 

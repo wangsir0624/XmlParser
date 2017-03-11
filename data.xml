@@ -18,7 +18,7 @@
 
     <filter>
         <whitelist>
-            <directory>./测试</directory>
+            <directory>./test</directory>
         </whitelist>
     </filter>
 </phpunit>

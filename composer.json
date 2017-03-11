@@ -1,5 +1,5 @@
 {
-  "name": "Wangjian/XmlParser",
+  "name": "wangjian/xmlparser",
   "description": "PHP写的XML解析器，能简单快速地将XML文档解析成节点树",
   "license": "MIT",
   "keywords": ["xml parser"],

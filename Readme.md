@@ -9,12 +9,7 @@ $xml = XmlParser::loadFromFile('./data.xml');
 
 //从字符串中读取，字符串不能含有声明行
 $xml = XmlParser::loadFromString('<filter name="test"><whitelist><directory>./</directory></whitelist></filter>');
-
-<<<<<<< HEAD
 ```
-=======
-````
->>>>>>> 85dcdb78ff1acbf5445a2e34820a7b38b64af9e1
 
 ####获取子节点
 可以使用find函数来获取节点的子节点，此函数只会获取直接子节点
@@ -27,11 +22,7 @@ $xml = XmlParser::loadFromString('<filter name="test"><whitelist><directory>./</
 //获取所有子节点
 var_dump($xml->find()); //或者var_dump($xml->find('*'));
 
-<<<<<<< HEAD
 //获取指定标签子节点
-=======
-//获取标签子节点
->>>>>>> 85dcdb78ff1acbf5445a2e34820a7b38b64af9e1
 var_dump($xml->find('testsuites'));
 
 //获取带有特定属性的子节点
@@ -39,12 +30,8 @@ var_dump($xml->find('testsuites[test=test]'));
 
 //筛选子节点
 var_dump($xml->find('testsuites[test=test]:ge(0)')); //支持eq, gt, lt, ge, le五中过滤选择器
-<<<<<<< HEAD
 ```
 
-=======
-````
->>>>>>> 85dcdb78ff1acbf5445a2e34820a7b38b64af9e1
 ####检查是否包含特定子节点
 可以采用has函数来检查是否含有特定的子节点，此函数接受find函数相同的参数值
 
@@ -65,10 +52,7 @@ var_dump($testsuite->prev());
 
 //获取下一个兄弟节点
 var_dump($testsuite->next());
-<<<<<<< HEAD
 ```
-=======
->>>>>>> 85dcdb78ff1acbf5445a2e34820a7b38b64af9e1
 
 ####子节点的添加与删除
 ```PHP

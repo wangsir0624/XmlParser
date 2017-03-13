@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false" backupStaticAttributes="false" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" syntaxCheck="false">
+	<testsuites test="test">
+		<testsuite name="Http module test">
+			<directory>汪剑111</directory>
+			<directory>./Tests/</directory>
+
+		</testsuite>
+
+	</testsuites>
+	<testsuites test1="test1">
+		<testsuite name="Http module test">
+			<directory>汪剑111</directory>
+			<directory>./Tests/</directory>
+
+		</testsuite>
+
+	</testsuites>
+	<filter>
+		<whitelist>
+			<directory>./</directory>
+
+		</whitelist>
+
+	</filter>
+	<test attr1="value1">
+	<test2 arrt2="value2"></test2>
+
+	</test>
+
+</phpunit>

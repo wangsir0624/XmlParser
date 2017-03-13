@@ -27,11 +27,19 @@ class Node {
     protected $level;
 
     /**
+     * parent node
+     * @var Node
+     */
+    protected $parent;
+
+    /**
      * Node constructor.
      * @param $name
      */
     public function __construct($name) {
         $this->name = $name;
+        $this->level = 0;
+        $this->parent = null;
     }
 
     /**
@@ -65,11 +73,80 @@ class Node {
     }
 
     /**
+     * get the parent node
+     * @return Node
+     */
+    public function parent() {
+        return $this->parent;
+    }
+
+    /**
+     * get the index of this node
+     * @return int
+     */
+    public function index() {
+        $index = 0;
+
+        if(is_null($this->parent)) {
+            return $index;
+        }
+
+        foreach($this->parent->nodes as $node) {
+            if($this === $node) {
+                return $index;
+            }
+
+            $index++;
+        }
+    }
+
+    /**
      * get the node name
      * @return string
      */
-    public function getName() {
+    public function name() {
         return $this->name;
+    }
+
+    /**
+     * get the sublings
+     * @param Node $node
+     * @return array
+     */
+    public function siblings() {
+        $siblings = array();
+
+        foreach($this->parent->nodes as $node) {
+            if($node !== $this) {
+                $siblings[] = $node;
+            }
+        }
+
+        return $siblings;
+    }
+
+    /**
+     * get the previous sibling node
+     * @return Node|null
+     */
+    public function prev() {
+        if($this->index() == 0) {
+            return null;
+        }
+
+        return $this->parent->find()[$this->index()-1];
+    }
+
+    /**
+     * get the next sibling node
+     * @return Node|null
+     */
+    public function next() {
+        if($this->index() == $this->parent->nodes->count()-1) {
+            return null;
+        }
+
+        return $this->parent->find()[$this->index()+1];
     }
 
     public function __toString() {
@@ -85,16 +162,5 @@ class Node {
         $string .= ">$this->text</$this->name>\r\n";
 
        return $string;
-    }
-
-    /**
-     * set the node level
-     * @param $level
-     * @return $this
-     */
-    public function setLevel($level) {
-        $this->level = $level;
-
-        return $this;
     }
 }

@@ -12,11 +12,12 @@
  * 继续执行，又遇到一个book节点，将book节点加入到栈顶部节点（即为books节点）的子节点中
  * 循环如上过程，既可以得到一颗节点树
  */
-namespace Wangjian\XmlParser\Parser;
+namespace Wangjian\XmlParser;
 
 use SplStack;
-use Node\Node;
-use Node\CompositeNode;
+use Wangjian\XmlParser\Node\Node;
+use Wangjian\XmlParser\Node\CompositeNode;
+use RuntimeException;
 
 class XmlParser {
     /**
@@ -79,16 +80,10 @@ class XmlParser {
     protected static $with_header;
 
     /**
-     * the node level
-     * @var int
-     */
-    protected static $level;
-
-    /**
      * create a node tree from a XML document
-     * @param $filename
+     * @param string $filename
      * @return Node  return false on failure
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public static function loadFromFile($filename) {
         $handle = @fopen($filename, 'r');
@@ -148,8 +143,7 @@ class XmlParser {
                                 self::$tmp_node_attributes = array();
                             } else {
                                 $node = self::$stack->pop();
-                                self::$level--;
-                                $node_name = $node->getName();
+                                $node_name = $node->name();
                             }
 
                             if (preg_match("/^<\/" . $node_name . ">/", $line)) {
@@ -168,7 +162,6 @@ class XmlParser {
                             //when the line starts with '<*', it is a starting tag
                             if(self::$tmp_node_name != '') {
                                 $node = self::createCompositeNode(self::$tmp_node_name, self::$tmp_node_attributes);
-                                $node->setLevel(self::$level);
 
                                 if(!(self::$root_node instanceof Node)) {
                                     self::$root_node = $node;
@@ -179,7 +172,6 @@ class XmlParser {
                                 }
 
                                 self::$stack->push($node);
-                                self::$level++;
                             }
 
                             if(preg_match("/^<[^<>]+ *([^ \/<>]+=\"[^\/<>]+\")* *>/", $line)) {
@@ -205,7 +197,6 @@ class XmlParser {
                             if(self::$current_times >= 2+self::$with_header) {
                                 preg_match("/^[^<>]+/", $line, $matches);
                                 $node = self::createNode(self::$tmp_node_name, self::$tmp_node_attributes);
-                                $node->setLevel(self::$level);
 
                                 if (!self::$stack->isEmpty()) {
                                     self::$stack->top()->addChild($node);
@@ -228,7 +219,7 @@ class XmlParser {
 
     /**
      * create a node tree from XML string
-     * @param $string
+     * @param string $line
      * @return Node  return false on failure
      */
     public static function loadFromString($line) {
@@ -249,8 +240,7 @@ class XmlParser {
                         self::$tmp_node_attributes = array();
                     } else {
                         $node = self::$stack->pop();
-                        self::$level--;
-                        $node_name = $node->getName();
+                        $node_name = $node->name();
                     }
 
                     if (preg_match("/^<\/" . $node_name . ">/", $line)) {
@@ -269,7 +259,6 @@ class XmlParser {
                     //when the line starts with '<*', it is a starting tag
                     if (self::$tmp_node_name != '') {
                         $node = self::createCompositeNode(self::$tmp_node_name, self::$tmp_node_attributes);
-                        $node->setLevel(self::$level);
 
                         if (!(self::$root_node instanceof Node)) {
                             self::$root_node = $node;
@@ -280,7 +269,6 @@ class XmlParser {
                         }
 
                         self::$stack->push($node);
-                        self::$level++;
                     }
 
                     if (preg_match("/^<[^<>]+ *([^ \/<>]+=\"[^\/<>]+\")* *>/", $line)) {
@@ -306,7 +294,6 @@ class XmlParser {
                     if (self::$current_times >= 2 + self::$with_header) {
                         preg_match("/^[^<>]+/", $line, $matches);
                         $node = self::createNode(self::$tmp_node_name, self::$tmp_node_attributes);
-                        $node->setLevel(self::$level);
 
                         if (!self::$stack->isEmpty()) {
                             self::$stack->top()->addChild($node);
@@ -327,7 +314,7 @@ class XmlParser {
 
     /**
      * ouput the xml node tree into a file
-     * @param $outpath
+     * @param string $outpath
      * @param Node $xml
      * @return int  return the output bytes on success, and false on failure
      */
@@ -383,6 +370,5 @@ class XmlParser {
         self::$tmp_node_attributes = array();
         self::$current_times = 0;
         self::$with_header = 0;
-        self::$level = 0;
     }
 }

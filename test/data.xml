@@ -10,7 +10,14 @@
          syntaxCheck="false"
          bootstrap="vendor/autoload.php"
 >
-    <testsuites>
+    <testsuites test="test">
+        <testsuite name="Http module test">
+            <directory>Íô½£111</directory>
+            <directory>./Tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <testsuites test1="test1">
         <testsuite name="Http module test">
             <directory>Íô½£111</directory>
             <directory>./Tests/</directory>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         syntaxCheck="false"
+         bootstrap="vendor/autoload.php"
+>
+    <testsuites>
+        <testsuite name="Http module test">
+            <directory>汪剑111</directory>
+            <directory>./Tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+        </whitelist>
+    </filter>
+</phpunit>

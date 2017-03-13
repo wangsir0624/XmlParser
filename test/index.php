@@ -34,12 +34,16 @@ var_dump($xml->find('testsuites:eq(0)'));
 //$xml->removeChild($node);
 
 //增加节点
-$testNode = XmlParser::createCompositeNode('test', ['attr1' => 'value1']);
-$testNode2 = XmlParser::createNode('test2', ['arrt2' => 'value2']);
-$testNode->addChild($testNode2);
-$xml->addChild($testNode);
+//$testNode = XmlParser::createCompositeNode('test', ['attr1' => 'value1']);
+//$testNode2 = XmlParser::createNode('test2', ['arrt2' => 'value2']);
+//$testNode->addChild($testNode2);
+//$xml->addChild($testNode);
+
+$directory = $xml->find('filter')[0]->find('whitelist')[0]->find('directory')[0];
+//echo $directory->name();
+//echo $directory->text();
 
 //导出Xml
-XmlParser::save('./output.xml', $xml);
+//XmlParser::save('./output.xml', $xml);
 
 //var_dump($xml);

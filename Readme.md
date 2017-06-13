@@ -1,8 +1,8 @@
-###XmlParser
+### XmlParser
 用PHP写的XML解析器，使用简单，效率高。
 
-###Usage
-####XML读取
+### Usage
+#### XML读取
 ```PHP
 //从XML文档中读取
 $xml = XmlParser::loadFromFile('./data.xml');
@@ -11,7 +11,7 @@ $xml = XmlParser::loadFromFile('./data.xml');
 $xml = XmlParser::loadFromString('<filter name="test"><whitelist><directory>./</directory></whitelist></filter>');
 ```
 
-####获取子节点
+#### 获取子节点
 可以使用find函数来获取节点的子节点，此函数只会获取直接子节点
 ```PHP
 /*
@@ -32,10 +32,10 @@ var_dump($xml->find('testsuites[test=test]'));
 var_dump($xml->find('testsuites[test=test]:ge(0)')); //支持eq, gt, lt, ge, le五中过滤选择器
 ```
 
-####检查是否包含特定子节点
+#### 检查是否包含特定子节点
 可以采用has函数来检查是否含有特定的子节点，此函数接受find函数相同的参数值
 
-####获取兄弟节点
+#### 获取兄弟节点
 ```PHP
 //获取节点的序号值
 $testsuite = $xml->find('testsuites:eq(0)');
@@ -54,7 +54,7 @@ var_dump($testsuite->prev());
 var_dump($testsuite->next());
 ```
 
-####子节点的添加与删除
+#### 子节点的添加与删除
 ```PHP
 //创建子节点
 $node1 = XmlParser::createCompositeNode('test', ['attr1' => 'value1']);
@@ -71,7 +71,7 @@ $xml->removeChild($node1);    //$xml->removeChild(1); 也可以传递子节点�
 $xml->removeAllChild();
 ```
 
-####节点属性获取
+#### 节点属性获取
 ```PHP
 $directory = $xml->find('filter')[0]->find('whitelist')[0]->find('directory')[0];
 
